@@ -2,18 +2,19 @@
 import { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { business, generalMessage, whatsappLink } from "@/data/business";
-import { ArrowIcon, WhatsAppIcon } from "./Icons";
 import { BASE } from "@/lib/base";
+import { generalMessage, whatsappLink } from "@/data/business";
+import { ArrowIcon, WhatsAppIcon } from "./Icons";
 
 gsap.registerPlugin(ScrollTrigger);
 
 /**
- * Portada con scroll: la tienda real está a oscuras y, al desplazarse, se enciende el rótulo,
- * después los focos y por último el mostrador. Vídeo generado con Higgsfield (Kling 4.0) a partir
- * de la foto real del interior (fotograma final = foto real), sin audio.
- *
- * Alternativa ligera (movimiento reducido o ahorro de datos): imagen fija de la tienda encendida.
+ * Portada «Abrimos la persiana».
+ * Plano 1: la fachada real de C/ Real 40 de noche, persiana bajada; se enciende el neón del rótulo y sube la persiana.
+ * Plano 2: la cámara entra por la puerta hasta el mostrador real.
+ * Vídeo generado con Higgsfield (Kling 4.0) a partir de las fotos reales de la fachada y del interior. Sin audio.
+ * El scroll controla el vídeo; las bandas de cine se abren al entrar en la tienda.
+ * Movimiento reducido o ahorro de datos: imagen fija del interior y el texto final.
  */
 export default function HeroScroll() {
   const wrap = useRef<HTMLElement>(null);
@@ -36,11 +37,11 @@ export default function HeroScroll() {
 
     const v = video.current!;
     const mobile = window.matchMedia("(max-width: 767px)").matches;
-    const src = mobile ? `${BASE}/media/intro/intro-m.mp4` : `${BASE}/media/intro/intro-d.mp4`;
+    const src = `${BASE}/media/intro/${mobile ? "hero-m" : "hero-d"}.mp4`;
     let objectUrl: string | null = null;
     let cancelled = false;
 
-    // Cargar el vídeo completo en memoria permite buscar fotogramas sin cortes al hacer scroll.
+    // El vídeo completo en memoria permite buscar fotogramas sin saltos al hacer scroll.
     fetch(src)
       .then((r) => (r.ok ? r.blob() : Promise.reject()))
       .then((b) => {
@@ -50,15 +51,9 @@ export default function HeroScroll() {
       })
       .catch(() => { if (!cancelled) v.src = src; });
 
-    const onData = () => {
-      v.classList.add("is-ready");
-      announce();
-    };
+    const onData = () => { v.classList.add("is-ready"); announce(); };
     v.addEventListener("loadeddata", onData, { once: true });
-    // Si tarda demasiado (red lenta) no bloqueamos: el póster ya está visible.
     const late = window.setTimeout(announce, 2600);
-
-    // iOS: un primer toque "desbloquea" el decodificador para poder buscar fotogramas.
     const unlock = () => { v.play().then(() => v.pause()).catch(() => {}); };
     window.addEventListener("touchstart", unlock, { once: true, passive: true });
 
@@ -66,11 +61,17 @@ export default function HeroScroll() {
       const proxy = { t: 0 };
       const tl = gsap.timeline({
         defaults: { ease: "none" },
-        scrollTrigger: { trigger: wrap.current, start: "top top", end: "bottom bottom", scrub: 0.5 },
+        scrollTrigger: {
+          trigger: wrap.current,
+          start: "top top",
+          end: "bottom bottom",
+          scrub: 0.6,
+          onUpdate: (st) => gsap.set("[data-hero='progress']", { scaleX: st.progress }),
+        },
       });
       tl.to(proxy, {
         t: 1,
-        duration: 0.86,
+        duration: 0.88,
         onUpdate: () => {
           const d = v.duration;
           if (d && Number.isFinite(d)) {
@@ -79,13 +80,18 @@ export default function HeroScroll() {
           }
         },
       }, 0)
-        .to("[data-hero='cue']", { autoAlpha: 0, duration: 0.05 }, 0.02)
-        .to("[data-hero='p0']", { autoAlpha: 0, y: -40, duration: 0.1 }, 0.12)
-        .fromTo("[data-hero='p1']", { autoAlpha: 0, y: 40 }, { autoAlpha: 1, y: 0, duration: 0.08 }, 0.3)
-        .to("[data-hero='p1']", { autoAlpha: 0, y: -40, duration: 0.08 }, 0.54)
-        .fromTo("[data-hero='shade']", { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.12 }, 0.68)
-        .fromTo("[data-hero='p2']", { autoAlpha: 0, y: 40 }, { autoAlpha: 1, y: 0, duration: 0.1 }, 0.72)
-        .to({}, { duration: 0.14 });
+        // Texto 1: la calle a oscuras
+        .to("[data-hero='p0']", { autoAlpha: 0, y: -30, duration: 0.07 }, 0.14)
+        // Texto 2: sube la persiana
+        .fromTo("[data-hero='p1']", { autoAlpha: 0, y: 30 }, { autoAlpha: 1, y: 0, duration: 0.07 }, 0.3)
+        .to("[data-hero='p1']", { autoAlpha: 0, y: -30, duration: 0.07 }, 0.47)
+        // Al entrar en la tienda se abren las bandas de cine
+        .to("[data-hero='bar-top']", { yPercent: -100, duration: 0.2 }, 0.58)
+        .to("[data-hero='bar-bottom']", { yPercent: 100, duration: 0.2 }, 0.58)
+        // Texto final dentro de la tienda
+        .fromTo("[data-hero='shade']", { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.1 }, 0.8)
+        .fromTo("[data-hero='p2'] > *", { autoAlpha: 0, y: 26 }, { autoAlpha: 1, y: 0, duration: 0.06, stagger: 0.015 }, 0.84)
+        .to({}, { duration: 0.06 });
     }, wrap);
 
     return () => {
@@ -98,21 +104,17 @@ export default function HeroScroll() {
   }, []);
 
   const isStatic = mode === "static";
+  const posterD = `${BASE}/media/intro/${isStatic ? "hero-end-d" : "hero-poster-d"}.jpg`;
+  const posterM = `${BASE}/media/intro/${isStatic ? "hero-end-m" : "hero-poster-m"}.jpg`;
 
   return (
-    <section
-      id="inicio"
-      ref={wrap}
-      aria-label="Portada"
-      className={`relative ${isStatic ? "h-svh min-h-[560px]" : "h-[340svh]"}`}
-    >
-      <div className="sticky top-0 h-svh min-h-[560px] overflow-hidden bg-black">
-        {/* Póster (tienda a oscuras) mientras llega el vídeo; tienda encendida en modo estático */}
+    <section id="inicio" ref={wrap} aria-label="Portada" className={`relative ${isStatic ? "min-h-[100dvh]" : "h-[440svh]"}`}>
+      <div className="sticky top-0 h-[100dvh] min-h-[560px] overflow-hidden bg-[#050505]">
         <picture>
-          <source media="(max-width: 767px)" srcSet={isStatic ? `${BASE}/media/intro/lit-m.webp` : `${BASE}/media/intro/poster-m.webp`} />
+          <source media="(max-width: 767px)" srcSet={posterM} />
           <img
-            src={isStatic ? `${BASE}/media/intro/lit-d.webp` : `${BASE}/media/intro/poster-d.webp`}
-            alt="Interior de La Carnicería de Tomás: mostrador de carnes, paredes rojas y la vaca de la entrada"
+            src={posterD}
+            alt="Fachada de La Carnicería de Tomás en la calle Real de Ceuta, de noche"
             className="absolute inset-0 size-full object-cover"
             fetchPriority="high"
           />
@@ -125,73 +127,70 @@ export default function HeroScroll() {
             preload="auto"
             aria-hidden="true"
             tabIndex={-1}
-            className="hero-video absolute inset-0 size-full object-cover opacity-0 transition-opacity duration-500 [&.is-ready]:opacity-100"
+            className="absolute inset-0 size-full object-cover opacity-0 transition-opacity duration-700 [&.is-ready]:opacity-100"
           />
         )}
-        {/* Viñeta y legibilidad */}
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(120%_80%_at_50%_45%,transparent_40%,rgb(0_0_0/0.75)_100%)]" />
-        <div data-hero="shade" className={`pointer-events-none absolute inset-0 bg-gradient-to-t from-black via-black/55 to-black/10 ${isStatic ? "" : "invisible opacity-0"}`} />
 
-        <div className="relative mx-auto flex h-full max-w-[1440px] flex-col justify-end px-4 pb-[max(2.5rem,6vh)] sm:px-6 lg:px-10">
-          {/* Fase 0 — a oscuras */}
-          {!isStatic && (
-            <div data-hero="p0" className="absolute inset-x-4 top-[24%] sm:inset-x-6 lg:inset-x-10">
-              <p className="kicker">Calle Real, 40 · Ceuta</p>
-              <p className="display mt-4 max-w-[12ch] text-[clamp(3.2rem,10vw,9rem)] text-bone">
-                Se enciende la <span className="led-text">carnicería</span>.
-              </p>
-            </div>
-          )}
+        {/* Viñeta de cine */}
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(130%_90%_at_50%_42%,transparent_45%,rgb(5_5_5/0.8)_100%)]" />
+        <div data-hero="shade" className={`pointer-events-none absolute inset-0 bg-gradient-to-t from-[#050505] via-[#050505]/50 to-transparent ${isStatic ? "" : "invisible opacity-0"}`} />
 
-          {/* Fase 1 — el rótulo encendido */}
-          {!isStatic && (
-            <div data-hero="p1" className="invisible isolate absolute inset-x-4 bottom-[14%] opacity-0 sm:inset-x-6 md:left-auto md:right-10 md:max-w-[40rem] md:text-right">
-              <span aria-hidden="true" className="absolute -inset-x-20 -inset-y-16 -z-10 bg-[radial-gradient(closest-side,rgb(0_0_0/0.82),rgb(0_0_0/0.5)_60%,transparent)]" />
-              <p className="kicker">Lo que pone en la fachada</p>
-              <p className="display mt-3 text-[clamp(2.6rem,6.4vw,6rem)]">
-                Carnes naturales, nacionales <span className="led-text">y de importación.</span>
-              </p>
-            </div>
-          )}
+        {/* Bandas de cine 2.39:1 */}
+        {!isStatic && (
+          <>
+            <div data-hero="bar-top" aria-hidden="true" className="pointer-events-none absolute inset-x-0 top-0 h-[11vh] bg-[#050505]" />
+            <div data-hero="bar-bottom" aria-hidden="true" className="pointer-events-none absolute inset-x-0 bottom-0 h-[11vh] bg-[#050505]" />
+          </>
+        )}
 
-          {/* Fase 2 — todo encendido */}
-          <div data-hero="p2" className={`max-w-3xl ${isStatic ? "" : "invisible opacity-0"}`}>
-            <h1>
-              <span className="sr-only">La Carnicería de Tomás — </span>
-              <img
-                src={`${BASE}/media/brand/logo.webp`}
-                alt=""
-                width={720}
-                height={720}
-                className="-mb-6 -ml-4 h-auto w-[min(62vw,300px)] drop-shadow-[0_0_30px_rgba(255,43,43,0.35)] sm:w-[340px]"
-              />
-              <span className="display mt-2 block text-[clamp(2rem,4.8vw,3.75rem)] text-bone">Tu carnicería en el centro de Ceuta</span>
-            </h1>
-            <p className="mt-4 max-w-xl text-lg text-bone/85">
-              Más de 35 años de oficio, elaborados de la casa y un mostrador que se llena cada mañana en la calle Real.
+        {/* Texto 1 */}
+        {!isStatic && (
+          <div data-hero="p0" className="absolute inset-x-0 bottom-[16vh] px-6 text-center">
+            <p className="kicker">C/ Real, 40 · Ceuta</p>
+            <p className="display mx-auto mt-4 max-w-[18ch] text-[clamp(2.2rem,5vw,4.25rem)] leading-[0.95] text-bone">
+              Son las nueve en la calle Real.
             </p>
-            <div className="mt-7 flex flex-wrap gap-3">
+          </div>
+        )}
+
+        {/* Texto 2 */}
+        {!isStatic && (
+          <div data-hero="p1" className="invisible absolute inset-x-0 bottom-[16vh] px-6 text-center opacity-0">
+            <p className="display mx-auto max-w-[20ch] text-[clamp(2.2rem,5vw,4.25rem)] leading-[0.95] text-bone">
+              Se levanta la persiana.
+            </p>
+            <p className="mx-auto mt-4 max-w-md text-bone/75">Más de 35 años de oficio detrás de este mostrador.</p>
+          </div>
+        )}
+
+        {/* Texto final */}
+        <div className="absolute inset-x-0 bottom-0 mx-auto max-w-[1400px] px-5 pb-[max(2.75rem,7vh)] sm:px-8 lg:px-12">
+          <div data-hero="p2" className="max-w-2xl">
+            <h1 className={`display text-[clamp(2.5rem,5.6vw,4.75rem)] leading-[0.92] text-bone ${isStatic ? "" : "invisible opacity-0"}`}>
+              <span className="sr-only">La Carnicería de Tomás. </span>
+              Tu carnicería en el centro de <span className="led-text">Ceuta.</span>
+            </h1>
+            <p className={`mt-5 max-w-lg text-[1.05rem] text-bone/80 ${isStatic ? "" : "invisible opacity-0"}`}>
+              Carnes naturales nacionales y de importación, elaborados de la casa y atención personalizada.
+            </p>
+            <div className={`mt-7 flex flex-wrap gap-3 ${isStatic ? "" : "invisible opacity-0"}`}>
               <a href="#catalogo" className="btn btn-led">
                 Ver el catálogo <ArrowIcon />
               </a>
-              <a href={whatsappLink(generalMessage)} target="_blank" rel="noopener" className="btn btn-ghost">
+              <a href={whatsappLink(generalMessage)} target="_blank" rel="noopener" className="btn btn-ghost bg-black/40 backdrop-blur">
                 <WhatsAppIcon /> Escríbenos
               </a>
             </div>
           </div>
-
-          {!isStatic && (
-            <div data-hero="cue" className="pointer-events-none absolute bottom-8 left-1/2 flex -translate-x-1/2 flex-col items-center gap-3" aria-hidden="true">
-              <span className="dot text-[0.7rem] tracking-[0.3em] text-mute">Desliza para encender</span>
-              <span className="block h-12 w-px overflow-hidden bg-white/15">
-                <span className="block h-1/2 w-full animate-[cue_1.8s_ease-in-out_infinite] bg-led shadow-[0_0_8px_var(--led)]" />
-              </span>
-              <style>{`@keyframes cue{0%{transform:translateY(-100%)}100%{transform:translateY(200%)}}`}</style>
-            </div>
-          )}
         </div>
+
+        {/* Progreso de la secuencia */}
+        {!isStatic && (
+          <div aria-hidden="true" className="absolute inset-x-0 bottom-0 h-[2px] bg-white/[0.06]">
+            <div data-hero="progress" className="h-full origin-left scale-x-0 bg-led shadow-[0_0_10px_var(--led)]" />
+          </div>
+        )}
       </div>
-      <span className="sr-only">{business.claims.join(". ")}.</span>
     </section>
   );
 }

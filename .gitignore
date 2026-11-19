@@ -16,3 +16,6 @@ _gen/*
 !_gen/start_dark2.jpg
 !_gen/end_lit.jpg
 !_gen/prompt_intro.txt
+!_gen/v2/
+_gen/v2/*
+!_gen/v2/prompts.txt

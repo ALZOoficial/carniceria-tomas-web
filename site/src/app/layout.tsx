@@ -61,11 +61,11 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     <html lang="es" suppressHydrationWarning className={`${shoulders.variable} ${doto.variable} ${instrument.variable}`}>
       <head>
         <script dangerouslySetInnerHTML={{ __html: "var d=document.documentElement;d.classList.add('js');try{if(sessionStorage.getItem('ct-intro-seen')==='1')d.classList.add('seen-intro')}catch(e){}" }} />
-        <link rel="preload" as="image" href={`${BASE}/media/intro/poster-d.webp`} media="(min-width: 768px)" />
-        <link rel="preload" as="image" href={`${BASE}/media/intro/poster-m.webp`} media="(max-width: 767px)" />
+        <link rel="preload" as="image" href={`${BASE}/media/intro/hero-poster-d.jpg`} media="(min-width: 768px)" />
+        <link rel="preload" as="image" href={`${BASE}/media/intro/hero-poster-m.jpg`} media="(max-width: 767px)" />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       </head>
-      <body>{children}</body>
+      <body className="grain">{children}</body>
     </html>
   );
 }

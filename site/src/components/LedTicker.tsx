@@ -6,7 +6,7 @@ import { useShopStatus } from "@/lib/status";
 export default function LedTicker() {
   const status = useShopStatus();
   const items = [
-    status ? status.label : "L–V 10:00–14:00 · 17:00–21:00 · Sábados 10:00–14:00",
+    status ? status.label : "L-V 10:00-14:00 · 17:00-21:00 · Sábados 10:00-14:00",
     `${business.street} · ${business.city}`,
     ...business.claims,
     "Pregunta por WhatsApp",

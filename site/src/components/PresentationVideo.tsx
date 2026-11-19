@@ -47,8 +47,7 @@ export default function PresentationVideo() {
             <div className="relative w-full px-4 pb-14 pt-32 sm:px-6 lg:px-10">
               <div className="mx-auto flex max-w-[1440px] flex-col gap-8 md:flex-row md:items-end md:justify-between">
                 <div>
-                  <p className="kicker">Vídeo de presentación</p>
-                  <h2 id="film-title" className="display mt-4 max-w-[14ch] text-[clamp(3rem,8vw,7.5rem)]">
+                  <h2 id="film-title" className="display max-w-[14ch] text-[clamp(3rem,8vw,7.5rem)]">
                     Pasa y mira <span className="led-text">el mostrador.</span>
                   </h2>
                 </div>

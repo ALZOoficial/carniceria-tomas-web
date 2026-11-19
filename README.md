@@ -39,15 +39,13 @@ En cada producto, `origin` (procedencia) y `supplier` (proveedor) a `null` se mu
 
 ## Portada con scroll (Higgsfield)
 
-La tienda real aparece a oscuras y, al hacer scroll, se enciende primero el rótulo, después los focos y por último el mostrador.
+**«Abrimos la persiana»:** la fachada real de la calle Real, de noche y con la persiana bajada. Con el scroll se enciende el neón del rótulo, sube la persiana y la cámara entra hasta el mostrador real.
 
-- **Modelo:** Kling 4.0 (image-to-video con fotograma inicial y final), 6 s, 1080p, sin audio. Coste: 19,5 créditos.
-- **Fotogramas:** el final es la foto real del interior (Google Business) y el inicial es esa misma foto oscurecida, con el mismo encuadre.
-- **Modelos descartados:**
-  - Seedance 2.5 a 1080p cuesta 96 créditos, con audio o sin él.
-  - Kling 3.0 Pro (10,5 créditos) encendía el local de golpe.
-- **Alternativa ligera:** con movimiento reducido o ahorro de datos se muestra una imagen fija de la tienda encendida.
-
+- **Fotogramas:** GPT Image 2.5, a partir de la foto real de la fachada (Instagram) y del interior (Google).
+- **Vídeo:** dos tomas de Kling 4.0, image-to-video con fotograma inicial y final, 1080p y sin audio. Coste: unos 45 créditos.
+- **Por qué Kling 4.0:** Seedance 2.5 cuesta lo mismo con audio que sin él (96 créditos por toma).
+- **Pasos y prompts:** en `_gen/v2/prompts.txt`.
+- **Alternativa ligera:** con movimiento reducido o ahorro de datos se muestra una imagen fija del interior.
 ## Datos pendientes de confirmar con Tomás
 
 1. **Procedencia y proveedor** de los productos que aparecen como «Pendiente de confirmar»: chuletón, lomo alto, solomillo, lomo de vacuno, wagyu, carnes maduradas, osobuco, cerdo fresco, cerdo ibérico, cordero y pollo. También el proveedor de la ternera de Guadarrama y la procedencia del Black Angus Yerbas Bajas y de las morcillas De Sotillo.

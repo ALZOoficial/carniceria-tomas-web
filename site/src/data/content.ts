@@ -88,7 +88,7 @@ export const videos: VideoItem[] = [
     url: "https://www.facebook.com/reel/875260105976385",
     embed:
       "https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2FRTVCE%2Fvideos%2F875260105976385%2F&show_text=false&autoplay=true",
-    thumb: `${BASE}/media/photos/mostrador-1280.webp`,
+    thumb: `${BASE}/media/photos/mostrador-2-1280.webp`,
   },
 ];
 
@@ -99,8 +99,7 @@ export const reviews: Review[] = [
   {
     author: "E-Va",
     rating: 5,
-    text:
-      "La carne está buenísima, y la atención muy buena. La berenjena rellena y la hamburguesa de pizza están esquisitas. Sin duda la mejor carnicería de toda Ceuta.",
+    text: "La carne está buenísima, y la atención muy buena. (...) Sin duda la mejor carnicería de toda Ceuta.",
     when: "Octubre de 2026",
     source: "Google",
   },

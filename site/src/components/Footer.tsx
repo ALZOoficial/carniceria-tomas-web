@@ -19,9 +19,9 @@ export default function Footer() {
           <div>
             <p className="dot text-xs tracking-[0.16em] text-led">Horario</p>
             <p className="mt-3 text-bone/80">
-              Lunes a viernes: 10:00–14:00 y 17:00–21:00
+              Lunes a viernes: 10:00-14:00 y 17:00-21:00
               <br />
-              Sábados: 10:00–14:00 · Domingos cerrado
+              Sábados: 10:00-14:00 · Domingos cerrado
             </p>
           </div>
           <div>

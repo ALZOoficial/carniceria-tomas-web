@@ -1,0 +1,8 @@
+﻿Portada v2 «Abrimos la persiana» (Higgsfield, 19/11/2026)
+1) GPT Image 2.5, 16:9 2k, desde ig93 (fachada real): fachada de noche, rótulo encendido como neón, interior rojo, calle mojada -> f3_open.png
+2) GPT Image 2.5 desde f3_open: persiana bajada y rótulo apagado, mismo encuadre -> f1_closed.png
+3) Kling 4.0 image-to-video 7 s 1080p: f1_closed -> f3_open (se enciende el neón, sube la persiana) -> v1.mp4
+4) Kling 4.0 image-to-video 6 s 1080p: f3_open -> ../end_lit.jpg (foto real del interior), travelling hacia dentro -> v2.mp4
+5) v1+v2 concatenados (13 s) -> public/media/intro/hero-d.mp4 (1440x810) y hero-m.mp4 (recorte vertical 540x972), GOP 4, sin audio.
+Objetos de prensa (GPT Image 2.5): televisor de tubo, radio-reloj LED, periódico en blanco -> public/media/press/.
+Fotos de banco: Unsplash (licencia Unsplash, uso comercial), marcadas como «Imagen ilustrativa» en el catálogo.

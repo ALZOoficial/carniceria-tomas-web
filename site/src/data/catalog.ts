@@ -27,6 +27,8 @@ export type Product = {
   name: string;
   category: CategoryId;
   image: string | null;
+  /** true si la foto es de banco (Unsplash) y no de la tienda: se muestra «Imagen ilustrativa». */
+  stockImage?: boolean;
   description?: string;
   /** Procedencia confirmada (región, país, granja…). null = pendiente. */
   origin: string | null;
@@ -43,10 +45,10 @@ export type Product = {
 
 export const categories: Category[] = [
   { id: "vacuno", name: "Vacuno", tagline: "Ternera, cortes nobles y maduraciones", cover: "chuleton" },
-  { id: "cerdo", name: "Cerdo", tagline: "Fresco e ibérico", cover: null },
+  { id: "cerdo", name: "Cerdo", tagline: "Fresco e ibérico", cover: "stock-cerdo" },
   { id: "cordero", name: "Cordero", tagline: "Canal y despiece", cover: "cordero" },
   { id: "aves", name: "Pollo y aves", tagline: "Pollo, pavo y rellenos", cover: "pollo-relleno" },
-  { id: "elaborados", name: "Elaborados de la casa", tagline: "Hechos en la tienda", cover: "pastel-tomate" },
+  { id: "elaborados", name: "Elaborados", tagline: "Hechos en la tienda", cover: "pastel-tomate" },
   { id: "embutidos", name: "Embutidos", tagline: "Chorizos de la casa y morcillas", cover: "chorizos" },
 ];
 
@@ -124,7 +126,8 @@ export const products: Product[] = [
     id: "carne-madurada",
     name: "Carnes maduradas (dry aged)",
     category: "vacuno",
-    image: null,
+    image: "stock-madurada",
+    stockImage: true,
     description: "Vacuno madurado en cámara. Pregunta qué piezas hay ahora mismo.",
     origin: null,
     supplier: null,
@@ -144,7 +147,8 @@ export const products: Product[] = [
     id: "cerdo-fresco",
     name: "Cerdo fresco",
     category: "cerdo",
-    image: null,
+    image: "stock-cerdo",
+    stockImage: true,
     description: "Piezas y despiece de cerdo.",
     origin: null,
     supplier: null,
@@ -153,7 +157,8 @@ export const products: Product[] = [
     id: "cerdo-iberico",
     name: "Cerdo ibérico",
     category: "cerdo",
-    image: null,
+    image: "stock-iberico",
+    stockImage: true,
     description: "Cortes de ibérico. Pregunta cuáles hay esta semana.",
     origin: null,
     supplier: null,
@@ -175,7 +180,8 @@ export const products: Product[] = [
     id: "pollo",
     name: "Pollo fresco",
     category: "aves",
-    image: null,
+    image: "stock-pollo",
+    stockImage: true,
     description: "Entero o en piezas.",
     origin: null,
     supplier: null,
@@ -193,7 +199,8 @@ export const products: Product[] = [
     id: "hamburguesa-pavo",
     name: "Hamburguesas de pavo",
     category: "aves",
-    image: null,
+    image: "stock-hamburguesas",
+    stockImage: true,
     description: "De la casa, como el resto de hamburguesas.",
     origin: HOUSE,
     supplier: HOUSE_SUPPLIER,
@@ -242,7 +249,8 @@ export const products: Product[] = [
     id: "albondigas-pinchitos",
     name: "Albóndigas y pinchitos",
     category: "elaborados",
-    image: null,
+    image: "stock-albondigas",
+    stockImage: true,
     description: "Preparados en la casa.",
     origin: HOUSE,
     supplier: HOUSE_SUPPLIER,
@@ -251,7 +259,8 @@ export const products: Product[] = [
     id: "berenjena-rellena",
     name: "Berenjena rellena",
     category: "elaborados",
-    image: null,
+    image: "stock-berenjena",
+    stockImage: true,
     description: "Una de las favoritas de las reseñas.",
     origin: HOUSE,
     supplier: HOUSE_SUPPLIER,

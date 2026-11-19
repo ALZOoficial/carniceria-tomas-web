@@ -1,6 +1,7 @@
 import About from "@/components/About";
 import Catalog from "@/components/Catalog";
 import Footer from "@/components/Footer";
+import HechoEnCasa from "@/components/HechoEnCasa";
 import HeroScroll from "@/components/HeroScroll";
 import LedTicker from "@/components/LedTicker";
 import Preloader from "@/components/Preloader";
@@ -22,6 +23,7 @@ export default function Home() {
         <HeroScroll />
         <LedTicker />
         <About />
+        <HechoEnCasa />
         <Catalog />
         <Press />
         <PresentationVideo />

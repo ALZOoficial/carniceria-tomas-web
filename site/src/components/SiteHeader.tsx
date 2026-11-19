@@ -46,11 +46,14 @@ export default function SiteHeader() {
   useFocusTrap(menu, menuRef, closeMenu);
   useFocusTrap(contact, contactRef, closeContact);
 
+  // Fondo de la cabecera al salir de la portada: se observa la portada entera, que deja de verse
+  // tanto al hacer scroll como al saltar a un ancla.
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 24);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    const hero = document.getElementById("inicio");
+    if (!hero) return;
+    const io = new IntersectionObserver(([e]) => setScrolled(!e.isIntersecting), { rootMargin: "-64px 0px 0px 0px" });
+    io.observe(hero);
+    return () => io.disconnect();
   }, []);
 
   useEffect(() => {
@@ -135,7 +138,7 @@ export default function SiteHeader() {
           <div className="mt-auto space-y-3 pt-8 text-sm text-mute">
             <p className="flex items-center gap-2 text-bone">
               <span className={`status-dot ${status?.open ? "is-open" : ""}`} aria-hidden="true" />
-              {status ? status.label : "Horario: L–V 10:00–14:00 y 17:00–21:00 · S 10:00–14:00"}
+              {status ? status.label : "Horario: L-V 10:00-14:00 y 17:00-21:00 · S 10:00-14:00"}
             </p>
             <p>{business.street} · {business.city}</p>
             <a href={business.instagram.url} target="_blank" rel="noopener" className="inline-flex items-center gap-2 hover:text-bone">
@@ -181,7 +184,7 @@ export default function SiteHeader() {
           </div>
           <p className="mt-4 flex items-center gap-2 text-sm text-mute">
             <span className={`status-dot ${status?.open ? "is-open" : ""}`} aria-hidden="true" />
-            {status ? status.label : "L–V 10:00–14:00 y 17:00–21:00 · S 10:00–14:00"}
+            {status ? status.label : "L-V 10:00-14:00 y 17:00-21:00 · S 10:00-14:00"}
           </p>
         </div>
       </div>
