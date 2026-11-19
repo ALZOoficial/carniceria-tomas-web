@@ -1,0 +1,18 @@
+# Dependencias y compilaciones
+node_modules/
+site/.next/
+site/out/
+*.tsbuildinfo
+site/next-env.d.ts
+
+# Entorno
+.env*
+.DS_Store
+npm-debug.log*
+
+# Material de generación: solo se versiona lo necesario para regenerar la portada
+_gen/*
+!_gen/k4.mp4
+!_gen/start_dark2.jpg
+!_gen/end_lit.jpg
+!_gen/prompt_intro.txt

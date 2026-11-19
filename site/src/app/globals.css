@@ -1,0 +1,136 @@
+@import "tailwindcss";
+
+/* ---------- Tokens ---------- */
+:root {
+  --ink: #070708;
+  --ink-2: #0e0e10;
+  --ink-3: #17171a;
+  --line: rgb(255 255 255 / 0.09);
+  --line-2: rgb(255 255 255 / 0.16);
+  --bone: #f2eee8;
+  --mute: #a8a29b; /* 7.9:1 sobre --ink */
+  --led: #ff2b2b; /* rojo LED encendido */
+  --brand: #e30613; /* rojo del logotipo */
+  --led-dim: #5a0d0d;
+  --glow: 0 0 0.35em rgb(255 43 43 / 0.75), 0 0 1.4em rgb(255 43 43 / 0.35);
+  --header-h: 64px;
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@theme inline {
+  --color-ink: var(--ink);
+  --color-ink-2: var(--ink-2);
+  --color-ink-3: var(--ink-3);
+  --color-bone: var(--bone);
+  --color-mute: var(--mute);
+  --color-led: var(--led);
+  --color-brand: var(--brand);
+  --color-line: var(--line);
+  --font-display: var(--font-shoulders), "Arial Narrow", sans-serif;
+  --font-dot: var(--font-doto), ui-monospace, monospace;
+  --font-sans: var(--font-instrument), system-ui, sans-serif;
+}
+
+/* ---------- Base ---------- */
+@layer base {
+html {
+  background: var(--ink);
+  color: var(--bone);
+  scroll-padding-top: calc(var(--header-h) + 12px);
+  -webkit-text-size-adjust: 100%;
+}
+body {
+  background: var(--ink);
+  font-family: var(--font-sans);
+  font-size: 1.0625rem;
+  line-height: 1.6;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: clip;
+}
+::selection { background: var(--brand); color: #fff; }
+img, video { display: block; max-width: 100%; }
+:focus-visible { outline: 2px solid var(--led); outline-offset: 3px; border-radius: 2px; }
+}
+
+/* ---------- Components (en capa: las utilidades de Tailwind pueden sobrescribirlas) ---------- */
+@layer components {
+.display {
+  font-family: var(--font-display);
+  font-weight: 800;
+  text-transform: uppercase;
+  line-height: 0.88;
+  letter-spacing: -0.005em;
+}
+.dot {
+  font-family: var(--font-dot);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.led-text { color: var(--led); text-shadow: var(--glow); }
+.kicker {
+  font-family: var(--font-dot);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: 0.8125rem;
+  color: var(--led);
+  text-shadow: 0 0 0.6em rgb(255 43 43 / 0.45);
+}
+
+/* Dot-matrix background texture (LED board). */
+.ledboard {
+  background-color: #0b0505;
+  background-image: radial-gradient(circle at center, rgb(255 43 43 / 0.16) 1.1px, transparent 1.6px);
+  background-size: 7px 7px;
+}
+
+/* Thin LED rule */
+.led-rule {
+  height: 2px;
+  background: var(--led);
+  box-shadow: 0 0 10px rgb(255 43 43 / 0.8), 0 0 28px rgb(255 43 43 / 0.35);
+}
+
+/* Buttons */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 0.6em;
+  min-height: 48px; padding: 0 1.25rem; border-radius: 999px;
+  font-weight: 600; font-size: 0.9375rem; letter-spacing: 0.01em;
+  transition: background-color 0.25s var(--ease-out), color 0.25s var(--ease-out), box-shadow 0.25s var(--ease-out), border-color 0.25s, transform 0.2s var(--ease-out);
+  -webkit-tap-highlight-color: transparent;
+}
+.btn:active { transform: scale(0.97); }
+.btn-led { background: var(--brand); color: #fff; box-shadow: 0 0 0 rgb(255 43 43 / 0); }
+.btn-led:hover { background: var(--led); box-shadow: 0 0 22px rgb(255 43 43 / 0.55); }
+.btn-ghost { border: 1px solid var(--line-2); color: var(--bone); background: rgb(255 255 255 / 0.02); }
+.btn-ghost:hover { border-color: var(--led); color: #fff; box-shadow: inset 0 0 0 1px var(--led), 0 0 18px rgb(255 43 43 / 0.25); }
+.status-dot { width: 8px; height: 8px; border-radius: 99px; background: var(--led); box-shadow: 0 0 8px var(--led); }
+.status-dot.is-open { background: #3ddc84; box-shadow: 0 0 8px #3ddc84; animation: pulse-dot 2.4s ease-in-out infinite; }
+}
+
+/* LED flicker used when things "switch on" */
+@keyframes led-on {
+  0% { opacity: 0; }
+  8% { opacity: 1; }
+  12% { opacity: 0.15; }
+  20% { opacity: 1; }
+  24% { opacity: 0.4; }
+  34%, 100% { opacity: 1; }
+}
+@keyframes ticker { to { transform: translateX(-50%); } }
+@keyframes pulse-dot { 0%, 100% { opacity: 1; } 50% { opacity: 0.35; } }
+
+/* Reveal-on-scroll defaults (JS adds .is-in). Content stays visible without JS. */
+.js [data-reveal] { opacity: 0; transform: translateY(24px); }
+.js [data-reveal].is-in { opacity: 1; transform: none; transition: opacity 0.9s var(--ease-out), transform 0.9s var(--ease-out); }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; scroll-behavior: auto !important; }
+  .js [data-reveal] { opacity: 1; transform: none; }
+}
+
+/* Hide scrollbar on horizontal chip rows */
+.no-scrollbar { scrollbar-width: none; }
+.no-scrollbar::-webkit-scrollbar { display: none; }
