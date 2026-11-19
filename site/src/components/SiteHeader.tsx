@@ -3,6 +3,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { business, generalMessage, whatsappLink } from "@/data/business";
 import { useShopStatus } from "@/lib/status";
 import { CloseIcon, InstagramIcon, PhoneIcon, PinIcon, WhatsAppIcon } from "./Icons";
+import { BASE } from "@/lib/base";
 
 const nav = [
   { href: "#inicio", label: "Inicio" },
@@ -80,7 +81,7 @@ export default function SiteHeader() {
               </span>
             </button>
             <a href="#inicio" className="hidden items-center sm:flex" aria-label={`${business.name}, ir al inicio`}>
-              <img src="/media/brand/logo.webp" alt="" width={720} height={720} className="h-12 w-auto -my-1" />
+              <img src={`${BASE}/media/brand/logo.webp`} alt="" width={720} height={720} className="h-12 w-auto -my-1" />
             </a>
           </div>
 
@@ -114,7 +115,7 @@ export default function SiteHeader() {
           }`}
         >
           <div className="flex items-center justify-between">
-            <img src="/media/brand/logo.webp" alt={business.name} width={720} height={720} className="h-16 w-auto" />
+            <img src={`${BASE}/media/brand/logo.webp`} alt={business.name} width={720} height={720} className="h-16 w-auto" />
             <button type="button" onClick={closeMenu} className="grid size-11 place-items-center rounded-full border border-white/15 hover:border-led">
               <CloseIcon />
               <span className="sr-only">Cerrar menú</span>

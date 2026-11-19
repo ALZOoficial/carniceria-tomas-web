@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Big_Shoulders, Doto, Instrument_Sans } from "next/font/google";
 import { business, hours, SITE_URL } from "@/data/business";
 import "./globals.css";
+import { BASE } from "@/lib/base";
 
 const shoulders = Big_Shoulders({ subsets: ["latin"], variable: "--font-shoulders", display: "swap" });
 const doto = Doto({ subsets: ["latin"], variable: "--font-doto", display: "swap" });
@@ -60,8 +61,8 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     <html lang="es" suppressHydrationWarning className={`${shoulders.variable} ${doto.variable} ${instrument.variable}`}>
       <head>
         <script dangerouslySetInnerHTML={{ __html: "var d=document.documentElement;d.classList.add('js');try{if(sessionStorage.getItem('ct-intro-seen')==='1')d.classList.add('seen-intro')}catch(e){}" }} />
-        <link rel="preload" as="image" href="/media/intro/poster-d.webp" media="(min-width: 768px)" />
-        <link rel="preload" as="image" href="/media/intro/poster-m.webp" media="(max-width: 767px)" />
+        <link rel="preload" as="image" href={`${BASE}/media/intro/poster-d.webp`} media="(min-width: 768px)" />
+        <link rel="preload" as="image" href={`${BASE}/media/intro/poster-m.webp`} media="(max-width: 767px)" />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       </head>
       <body>{children}</body>

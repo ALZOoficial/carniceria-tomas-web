@@ -4,6 +4,7 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { business, generalMessage, whatsappLink } from "@/data/business";
 import { ArrowIcon, WhatsAppIcon } from "./Icons";
+import { BASE } from "@/lib/base";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -35,7 +36,7 @@ export default function HeroScroll() {
 
     const v = video.current!;
     const mobile = window.matchMedia("(max-width: 767px)").matches;
-    const src = mobile ? "/media/intro/intro-m.mp4" : "/media/intro/intro-d.mp4";
+    const src = mobile ? `${BASE}/media/intro/intro-m.mp4` : `${BASE}/media/intro/intro-d.mp4`;
     let objectUrl: string | null = null;
     let cancelled = false;
 
@@ -108,9 +109,9 @@ export default function HeroScroll() {
       <div className="sticky top-0 h-svh min-h-[560px] overflow-hidden bg-black">
         {/* Póster (tienda a oscuras) mientras llega el vídeo; tienda encendida en modo estático */}
         <picture>
-          <source media="(max-width: 767px)" srcSet={isStatic ? "/media/intro/lit-m.webp" : "/media/intro/poster-m.webp"} />
+          <source media="(max-width: 767px)" srcSet={isStatic ? `${BASE}/media/intro/lit-m.webp` : `${BASE}/media/intro/poster-m.webp`} />
           <img
-            src={isStatic ? "/media/intro/lit-d.webp" : "/media/intro/poster-d.webp"}
+            src={isStatic ? `${BASE}/media/intro/lit-d.webp` : `${BASE}/media/intro/poster-d.webp`}
             alt="Interior de La Carnicería de Tomás: mostrador de carnes, paredes rojas y la vaca de la entrada"
             className="absolute inset-0 size-full object-cover"
             fetchPriority="high"
@@ -158,7 +159,7 @@ export default function HeroScroll() {
             <h1>
               <span className="sr-only">La Carnicería de Tomás — </span>
               <img
-                src="/media/brand/logo.webp"
+                src={`${BASE}/media/brand/logo.webp`}
                 alt=""
                 width={720}
                 height={720}

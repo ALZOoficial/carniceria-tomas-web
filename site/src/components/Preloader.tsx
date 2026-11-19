@@ -1,5 +1,6 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
+import { BASE } from "@/lib/base";
 
 /**
  * Encendido del rótulo: el trazo rojo del logo se dibuja como un neón y el nombre parpadea hasta quedarse fijo.
@@ -68,8 +69,8 @@ export default function Preloader() {
     >
       <span className="sr-only">Cargando La Carnicería de Tomás</span>
       <div className="preloader-sign relative aspect-square w-[min(68vw,420px)]" aria-hidden="true">
-        <img src="/media/brand/logo-stroke.webp" alt="" width={720} height={720} className="pl-stroke absolute inset-0 size-full" />
-        <img src="/media/brand/logo-words.webp" alt="" width={720} height={720} className="pl-words absolute inset-0 size-full" />
+        <img src={`${BASE}/media/brand/logo-stroke.webp`} alt="" width={720} height={720} className="pl-stroke absolute inset-0 size-full" />
+        <img src={`${BASE}/media/brand/logo-words.webp`} alt="" width={720} height={720} className="pl-words absolute inset-0 size-full" />
       </div>
       <p className="pl-caption dot absolute bottom-[12vh] text-xs tracking-[0.3em] text-mute" aria-hidden="true">
         Encendiendo el escaparate

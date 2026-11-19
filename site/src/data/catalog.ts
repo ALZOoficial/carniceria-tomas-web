@@ -1,3 +1,4 @@
+import { BASE } from "@/lib/base";
 /**
  * CATÁLOGO — sin precios.
  *
@@ -328,5 +329,5 @@ export const products: Product[] = [
 ];
 
 export const productsByCategory = (id: CategoryId) => products.filter((p) => p.category === id);
-export const photo = (key: string, w: 640 | 1280 = 640) => `/media/photos/${key}-${w}.webp`;
+export const photo = (key: string, w: 640 | 1280 = 640) => `${BASE}/media/photos/${key}-${w}.webp`;
 export const photoSet = (key: string) => `${photo(key, 640)} 640w, ${photo(key, 1280)} 1280w`;

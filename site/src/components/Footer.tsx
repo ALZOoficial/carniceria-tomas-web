@@ -1,11 +1,12 @@
 import { business } from "@/data/business";
 import { InstagramIcon } from "./Icons";
+import { BASE } from "@/lib/base";
 
 export default function Footer() {
   return (
     <footer className="relative overflow-hidden border-t border-line bg-black pb-10 pt-20">
       <div className="mx-auto grid max-w-[1440px] gap-12 px-4 sm:px-6 md:grid-cols-[auto_1fr] lg:px-10">
-        <img src="/media/brand/logo.webp" alt={business.name} width={720} height={720} loading="lazy" className="-ml-4 -mt-6 w-56" />
+        <img src={`${BASE}/media/brand/logo.webp`} alt={business.name} width={720} height={720} loading="lazy" className="-ml-4 -mt-6 w-56" />
         <div className="grid gap-8 text-sm sm:grid-cols-3">
           <div>
             <p className="dot text-xs tracking-[0.16em] text-led">Tienda</p>

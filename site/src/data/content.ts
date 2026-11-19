@@ -1,3 +1,4 @@
+import { BASE } from "@/lib/base";
 /** Prensa, vídeos, reseñas y vídeo de presentación. Todo con su fuente. */
 
 export type PressItem = {
@@ -87,7 +88,7 @@ export const videos: VideoItem[] = [
     url: "https://www.facebook.com/reel/875260105976385",
     embed:
       "https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2FRTVCE%2Fvideos%2F875260105976385%2F&show_text=false&autoplay=true",
-    thumb: "/media/photos/mostrador-1280.webp",
+    thumb: `${BASE}/media/photos/mostrador-1280.webp`,
   },
 ];
 
@@ -130,6 +131,6 @@ export const presentationVideo: {
   instagramUrl: string | null;
 } = {
   src: null,
-  poster: "/media/photos/interior-1280.webp",
+  poster: `${BASE}/media/photos/interior-1280.webp`,
   instagramUrl: null,
 };
