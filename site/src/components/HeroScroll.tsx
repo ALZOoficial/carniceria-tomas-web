@@ -146,9 +146,9 @@ export default function HeroScroll() {
         {/* Texto 1 */}
         {!isStatic && (
           <div data-hero="p0" className="absolute inset-x-0 bottom-[16vh] px-6 text-center">
-            <p className="kicker">C/ Real, 40 · Ceuta</p>
+            <p className="kicker">C/ Real, 40</p>
             <p className="display mx-auto mt-4 max-w-[18ch] text-[clamp(2.2rem,5vw,4.25rem)] leading-[0.95] text-bone">
-              Son las nueve en la calle Real.
+              En pleno centro de Ceuta.
             </p>
           </div>
         )}
