@@ -167,8 +167,7 @@ export default function HeroScroll() {
         <div className="absolute inset-x-0 bottom-0 mx-auto max-w-[1400px] px-5 pb-[max(2.75rem,7vh)] sm:px-8 lg:px-12">
           <div data-hero="p2" className="max-w-2xl">
             <h1 className={`display text-[clamp(2.5rem,5.6vw,4.75rem)] leading-[0.92] text-bone ${isStatic ? "" : "invisible opacity-0"}`}>
-              <span className="sr-only">La Carnicería de Tomás. </span>
-              Tu carnicería en el centro de <span className="led-text">Ceuta.</span>
+              La Carnicería de <span className="led-text">Tomás.</span>
             </h1>
             <p className={`mt-5 max-w-lg text-[1.05rem] text-bone/80 ${isStatic ? "" : "invisible opacity-0"}`}>
               Carnes naturales nacionales y de importación, elaborados de la casa y atención personalizada.
