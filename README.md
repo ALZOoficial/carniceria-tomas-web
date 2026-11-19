@@ -2,6 +2,10 @@
 
 Web estática (Next.js 15 + TypeScript + Tailwind 4 + GSAP) para **La Carnicería de Tomás**, C/ Real, 40 · Ceuta.
 
+**▶ Ver la web en vivo: https://alzooficial.github.io/carniceria-tomas-web/**
+
+Cada push a `main` la vuelve a compilar y publicar automáticamente (GitHub Actions → Pages, 1–2 min).
+
 ```
 site/        proyecto Next.js (código de la web)
 _tools/      scripts de preparación de medios (ffmpeg + sharp)
