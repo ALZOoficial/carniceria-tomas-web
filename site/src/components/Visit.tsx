@@ -13,7 +13,7 @@ export default function Visit() {
     <section id="localizacion" aria-labelledby="visit-title" className="relative border-t border-line py-24 sm:py-32">
       <div className="mx-auto max-w-[1400px] px-5 sm:px-8 lg:px-12">
         <p className="kicker" data-reveal>Localización y contacto</p>
-        <h2 id="visit-title" className="display mt-4 text-[clamp(2.8rem,6vw,5.5rem)] leading-[0.9]" data-reveal>
+        <h2 id="visit-title" className="display mt-4 text-[clamp(2.8rem,6vw,5.5rem)] leading-[1.04]" data-reveal>
           Te esperamos en la calle <span className="led-text">Real.</span>
         </h2>
 

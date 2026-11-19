@@ -147,7 +147,7 @@ export default function HeroScroll() {
         {!isStatic && (
           <div data-hero="p0" className="absolute inset-x-0 bottom-[16vh] px-6 text-center">
             <p className="kicker">C/ Real, 40</p>
-            <p className="display mx-auto mt-4 max-w-[18ch] text-[clamp(2.2rem,5vw,4.25rem)] leading-[0.95] text-bone">
+            <p className="display mx-auto mt-4 max-w-[18ch] text-[clamp(2.2rem,5vw,4.25rem)] leading-[1.04] text-bone">
               En pleno centro de Ceuta.
             </p>
           </div>
@@ -156,7 +156,7 @@ export default function HeroScroll() {
         {/* Texto 2 */}
         {!isStatic && (
           <div data-hero="p1" className="invisible absolute inset-x-0 bottom-[16vh] px-6 text-center opacity-0">
-            <p className="display mx-auto max-w-[20ch] text-[clamp(2.2rem,5vw,4.25rem)] leading-[0.95] text-bone">
+            <p className="display mx-auto max-w-[20ch] text-[clamp(2.2rem,5vw,4.25rem)] leading-[1.04] text-bone">
               Se levanta la persiana.
             </p>
             <p className="mx-auto mt-4 max-w-md text-bone/75">Más de 35 años de oficio detrás de este mostrador.</p>
@@ -166,7 +166,7 @@ export default function HeroScroll() {
         {/* Texto final */}
         <div className="absolute inset-x-0 bottom-0 mx-auto max-w-[1400px] px-5 pb-[max(2.75rem,7vh)] sm:px-8 lg:px-12">
           <div data-hero="p2" className="max-w-2xl">
-            <h1 className={`display text-[clamp(2.5rem,5.6vw,4.75rem)] leading-[0.92] text-bone ${isStatic ? "" : "invisible opacity-0"}`}>
+            <h1 className={`display text-[clamp(2.5rem,5.6vw,4.75rem)] leading-[1.08] text-bone ${isStatic ? "" : "invisible opacity-0"}`}>
               La Carnicería de <span className="led-text">Tomás.</span>
             </h1>
             <p className={`mt-5 max-w-lg text-[1.05rem] text-bone/80 ${isStatic ? "" : "invisible opacity-0"}`}>

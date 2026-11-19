@@ -79,7 +79,7 @@ export default function Catalog() {
     <section id="catalogo" aria-labelledby="catalog-title" className="relative py-24 sm:py-32">
       <div className="mx-auto max-w-[1400px] px-5 sm:px-8 lg:px-12">
         <p className="kicker" data-reveal>Catálogo y stock</p>
-        <h2 id="catalog-title" className="display mt-4 text-[clamp(2.8rem,6vw,5.5rem)] leading-[0.9]" data-reveal>
+        <h2 id="catalog-title" className="display mt-4 text-[clamp(2.8rem,6vw,5.5rem)] leading-[1.04]" data-reveal>
           Elige por <span className="led-text">animal.</span>
         </h2>
         <p className="mt-5 max-w-[52ch] text-bone/75" data-reveal>
@@ -132,7 +132,7 @@ function CategoryStrip({ c, index, onOpen }: { c: Category; index: number; onOpe
 
         <span className="absolute inset-y-0 left-5 flex flex-col justify-center lg:inset-x-6 lg:bottom-7 lg:top-auto lg:justify-end">
           <span className="dot text-xs text-bone/60">{String(index + 1).padStart(2, "0")}</span>
-          <span className="display mt-1 block text-[clamp(1.9rem,2.4vw,2.8rem)] leading-[0.9] text-bone [overflow-wrap:anywhere]">
+          <span className="display mt-1 block text-[clamp(1.9rem,2.4vw,2.8rem)] leading-[1.04] text-bone [overflow-wrap:anywhere]">
             {c.name}
           </span>
           <span className="mt-2 hidden max-w-xs translate-y-2 text-sm text-bone/75 opacity-0 transition duration-500 lg:block lg:group-hover/strip:translate-y-0 lg:group-hover/strip:opacity-100 lg:group-focus-within/strip:translate-y-0 lg:group-focus-within/strip:opacity-100">
@@ -244,7 +244,7 @@ export function ProductCard({ p }: { p: Product }) {
       </div>
       {p.stockImage && <p className="px-5 pt-2 text-[0.7rem] text-mute">Imagen ilustrativa</p>}
       <div className="flex flex-1 flex-col p-5 pt-3">
-        <h4 className="display text-[1.85rem] leading-[0.95]">{p.name}</h4>
+        <h4 className="display text-[1.85rem] leading-[1.04]">{p.name}</h4>
         {p.description && <p className="mt-2 text-[0.95rem] text-bone/70">{p.description}</p>}
         <dl className="mt-5 grid grid-cols-2 gap-4 border-t border-line pt-4">
           <Field label="Procedencia" value={p.origin} note={p.originNote} />

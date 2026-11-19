@@ -39,7 +39,7 @@ function Caption({ outlet, date, dateTime, title, href, cta, onClick }: { outlet
       <p className="text-sm text-mute">
         <span className="font-semibold text-bone">{outlet}</span>, <time dateTime={dateTime}>{date}</time>
       </p>
-      <h3 className="display mt-2 text-[clamp(1.6rem,2.4vw,2.2rem)] leading-[0.95]">{title}</h3>
+      <h3 className="display mt-2 text-[clamp(1.6rem,2.4vw,2.2rem)] leading-[1.04]">{title}</h3>
       {onClick ? (
         <button type="button" onClick={onClick} className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-bone underline decoration-led/70 underline-offset-[6px] hover:decoration-led">
           {cta} <PlayIcon className="size-3.5" />
@@ -192,7 +192,7 @@ export default function Press() {
   return (
     <section id="nos-han-visitado" aria-labelledby="press-title" className="relative overflow-hidden border-t border-line bg-[#080808] py-24 sm:py-32">
       <div className="mx-auto max-w-[1400px] px-5 sm:px-8 lg:px-12">
-        <h2 id="press-title" className="display text-[clamp(3rem,8vw,7.5rem)] leading-[0.88]" data-reveal>
+        <h2 id="press-title" className="display text-[clamp(3rem,8vw,7.5rem)] leading-[1.04]" data-reveal>
           Nos han <span className="led-text">visitado.</span>
         </h2>
         <p className="mt-5 max-w-[46ch] text-lg text-bone/75" data-reveal>

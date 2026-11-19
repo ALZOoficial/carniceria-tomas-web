@@ -8,7 +8,7 @@ export default function About() {
     <section id="la-carniceria" aria-labelledby="about-title" className="relative py-24 sm:py-32">
       <div className="mx-auto grid max-w-[1400px] items-center gap-12 px-5 sm:px-8 lg:grid-cols-12 lg:gap-16 lg:px-12">
         <div className="lg:col-span-6">
-          <h2 id="about-title" className="display text-[clamp(2.6rem,5.4vw,4.75rem)] leading-[0.92]" data-reveal>
+          <h2 id="about-title" className="display text-[clamp(2.6rem,5.4vw,4.75rem)] leading-[1.04]" data-reveal>
             Más de 35 años detrás del <span className="led-text">mostrador.</span>
           </h2>
           <p className="mt-6 max-w-[46ch] text-lg text-bone/80" data-reveal>

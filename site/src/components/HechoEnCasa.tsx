@@ -60,7 +60,7 @@ export default function HechoEnCasa() {
         className="no-scrollbar flex snap-x snap-mandatory gap-5 overflow-x-auto px-5 py-20 sm:px-8 lg:h-[100dvh] lg:w-max lg:snap-none lg:items-center lg:gap-8 lg:overflow-visible lg:px-12 lg:py-0"
       >
         <div className="flex w-[78vw] shrink-0 snap-start flex-col justify-center sm:w-[420px] lg:w-[34vw] lg:pr-8">
-          <h2 id="casa-title" className="display text-[clamp(3rem,7vw,6.5rem)] leading-[0.88]">
+          <h2 id="casa-title" className="display text-[clamp(3rem,7vw,6.5rem)] leading-[1.04]">
             Hecho <span className="led-text">en casa.</span>
           </h2>
           <p className="mt-6 max-w-[34ch] text-lg text-bone/75">
