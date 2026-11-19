@@ -2,6 +2,7 @@
 import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { ArrowRight } from "@phosphor-icons/react/dist/ssr";
 import { photo, photoSet } from "@/data/catalog";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -23,6 +24,18 @@ const pieces = [
 export default function HechoEnCasa() {
   const wrap = useRef<HTMLElement>(null);
   const track = useRef<HTMLDivElement>(null);
+  const bar = useRef<HTMLDivElement>(null);
+  const hint = useRef<HTMLParagraphElement>(null);
+
+  // Móvil: la barra avanza con el carrusel y el aviso se apaga en cuanto se desliza.
+  const onTrackScroll = () => {
+    const t = track.current;
+    if (!t || window.innerWidth >= 1024) return;
+    const max = t.scrollWidth - t.clientWidth;
+    const p = max > 0 ? t.scrollLeft / max : 0;
+    if (bar.current) bar.current.style.transform = `scaleX(${0.17 + p * 0.83})`;
+    if (hint.current && t.scrollLeft > 24) hint.current.style.opacity = "0";
+  };
 
   useEffect(() => {
     const mm = gsap.matchMedia();
@@ -54,12 +67,23 @@ export default function HechoEnCasa() {
   }, []);
 
   return (
-    <section ref={wrap} aria-labelledby="casa-title" className="relative overflow-hidden border-y border-line bg-[#0a0a0b]">
+    <section ref={wrap} aria-labelledby="casa-title casa-title-m" className="relative overflow-hidden border-y border-line bg-[#0a0a0b]">
+      {/* Título en móvil: fuera del carrusel, con su margen */}
+      <div className="px-5 pb-10 pt-20 sm:px-8 lg:hidden">
+        <h2 id="casa-title-m" className="display text-[clamp(3rem,13vw,4.5rem)] leading-[1.04]">
+          Hecho <span className="led-text">en casa.</span>
+        </h2>
+        <p className="mt-5 max-w-[34ch] text-lg text-bone/75">
+          Casi todo lo que ves en el mostrador sale del obrador de la tienda.
+        </p>
+      </div>
       <div
         ref={track}
-        className="no-scrollbar flex snap-x snap-mandatory gap-5 overflow-x-auto px-5 py-20 sm:px-8 lg:h-[100dvh] lg:w-max lg:snap-none lg:items-center lg:gap-8 lg:overflow-visible lg:px-12 lg:py-0"
+        onScroll={onTrackScroll}
+        className="no-scrollbar flex snap-x snap-mandatory scroll-px-5 gap-4 overflow-x-auto px-5 pb-2 sm:scroll-px-8 sm:px-8 lg:h-[100dvh] lg:w-max lg:snap-none lg:items-center lg:gap-8 lg:overflow-visible lg:px-12 lg:pb-0"
       >
-        <div className="flex w-[78vw] shrink-0 snap-start flex-col justify-center sm:w-[420px] lg:w-[34vw] lg:pr-8">
+        {/* Título dentro de la galería solo en escritorio */}
+        <div className="hidden w-[34vw] shrink-0 flex-col justify-center pr-8 lg:flex">
           <h2 id="casa-title" className="display text-[clamp(3rem,7vw,6.5rem)] leading-[1.04]">
             Hecho <span className="led-text">en casa.</span>
           </h2>
@@ -86,8 +110,20 @@ export default function HechoEnCasa() {
             <p className="mt-1 text-sm text-mute">{p.note}</p>
           </figure>
         ))}
-        <div className="w-4 shrink-0 lg:w-[8vw]" aria-hidden="true" />
+        <div className="w-1 shrink-0 lg:w-[8vw]" aria-hidden="true" />
       </div>
+
+      {/* Móvil: progreso del carrusel y aviso para deslizar */}
+      <div className="px-5 pb-20 pt-6 sm:px-8 lg:hidden" aria-hidden="true">
+        <div className="h-[2px] w-full overflow-hidden rounded-full bg-white/10">
+          <div ref={bar} className="h-full w-full origin-left scale-x-[0.17] rounded-full bg-led shadow-[0_0_8px_var(--led)] transition-transform duration-150" />
+        </div>
+        <p ref={hint} className="mt-4 flex items-center gap-2 text-sm text-bone/75 transition-opacity duration-500">
+          Desliza para ver más
+          <ArrowRight className="size-4 animate-[nudge_1.4s_ease-in-out_infinite] text-led" />
+        </p>
+      </div>
+      <style>{`@keyframes nudge{0%,100%{transform:translateX(0)}50%{transform:translateX(6px)}}@media (prefers-reduced-motion:reduce){[class*="nudge"]{animation:none}}`}</style>
     </section>
   );
 }
