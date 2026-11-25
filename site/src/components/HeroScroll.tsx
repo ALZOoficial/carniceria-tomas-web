@@ -85,9 +85,6 @@ export default function HeroScroll() {
         // Texto 2: sube la persiana
         .fromTo("[data-hero='p1']", { autoAlpha: 0, y: 30 }, { autoAlpha: 1, y: 0, duration: 0.07 }, 0.3)
         .to("[data-hero='p1']", { autoAlpha: 0, y: -30, duration: 0.07 }, 0.47)
-        // Al entrar en la tienda se abren las bandas de cine
-        .to("[data-hero='bar-top']", { yPercent: -100, duration: 0.2 }, 0.58)
-        .to("[data-hero='bar-bottom']", { yPercent: 100, duration: 0.2 }, 0.58)
         // Texto final dentro de la tienda
         .fromTo("[data-hero='shade']", { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.1 }, 0.8)
         .fromTo("[data-hero='p2'] > *", { autoAlpha: 0, y: 26 }, { autoAlpha: 1, y: 0, duration: 0.06, stagger: 0.015 }, 0.84)
@@ -135,13 +132,6 @@ export default function HeroScroll() {
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(130%_90%_at_50%_42%,transparent_45%,rgb(5_5_5/0.8)_100%)]" />
         <div data-hero="shade" className={`pointer-events-none absolute inset-0 bg-gradient-to-t from-[#050505] via-[#050505]/50 to-transparent ${isStatic ? "" : "invisible opacity-0"}`} />
 
-        {/* Bandas de cine 2.39:1 */}
-        {!isStatic && (
-          <>
-            <div data-hero="bar-top" aria-hidden="true" className="pointer-events-none absolute inset-x-0 top-0 h-[11vh] bg-[#050505]" />
-            <div data-hero="bar-bottom" aria-hidden="true" className="pointer-events-none absolute inset-x-0 bottom-0 h-[11vh] bg-[#050505]" />
-          </>
-        )}
 
         {/* Texto 1 */}
         {!isStatic && (
